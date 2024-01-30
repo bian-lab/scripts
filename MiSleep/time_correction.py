@@ -113,15 +113,16 @@ def df2str(df, separator=', '):
 
 # Get arg parameters
 label_file_path = sys.argv[1]
-reset_acquisition_time_str = sys.argv[2]
+reset_acquisition_time_str = sys.argv[2] + ' ' + sys.argv[3]
 
 reset_acquisition_time = datetime.datetime.strptime(
-    reset_acquisition_time_str, '%Y-%m-%d/%H:%M:%S').strftime('%Y-%m-%d %H:%M:%S')
-print(label_file_path, reset_acquisition_time_str)
+    reset_acquisition_time_str, '%Y-%m-%d %H:%M:%S')
+print(f'Label file selected: {label_file_path}\n'
+      f"New acquisition time: {reset_acquisition_time_str}"
+      )
 
 # Read out the label file and split by `\n` to get each line
 label_file = open(label_file_path, 'r').read().split('\n')
-print('\n'.join(label_file[:5]))
 
 # Get the `==========Marker==========` part
 marker = label_file[label_file.index('==========Marker==========') + 1:
@@ -149,7 +150,7 @@ save_time = datetime.datetime.now().strftime(format='%Y-%m-%d %H:%M:%S')
 write_str = str(f'READ ONLY! DO NOT EDIT!\n'
                 f'4-INIT 3-Wake 2-REM 1-NREM\n'
                 f'Save time: {save_time}\n'
-                f'Acquisition time: {reset_acquisition_time_str}\n'
+                f"Acquisition time: {reset_acquisition_time_str}\n"
                 f'{label_file[4]}\n'
                 + '==========Marker==========' + marker_str
                 + '\n==========Start-End==========' + start_end_str
@@ -159,4 +160,4 @@ write_str = str(f'READ ONLY! DO NOT EDIT!\n'
 with open(label_file_path, 'w') as f:
     f.write(write_str)
 
-print(f'Saved file at {label_file_path}')
+print(f'Done!')
