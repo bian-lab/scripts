@@ -15,7 +15,8 @@ Run the following in your command (`cmd` when you use Windows).
 ```shell
 python PATH_TO_TIME_CORRECTION.PY/time_correction.py PATH_TO_YOUR_LABEL_FILE/LABEL.txt NEW_ACQUISITION_TIME
 
-# Here is an example, when you put the time_correction.py and the label file in the same directory, and now you are in the directory.
+# Here is an example, when you put the time_correction.py and
+# the label file in the same directory, and now you are in the directory.
 python time_correction.py label.txt 2024-01-30 13:20:20
 ```
 
