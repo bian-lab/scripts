@@ -2,7 +2,8 @@
 
 Some scripts about MiSleep
 
-#### Time correction
+### Time correction
+Updata: 2024-01-30
 
 When you forgot to change the acquisition time when first time create the label file, and you had already labeled some data, you can use the `time_correction.py` to change the acquisition time of your label file
 
@@ -21,3 +22,23 @@ python time_correction.py label.txt 2024-01-30 13:20:20
 ```
 
 And if you want to know how it works, check the `time_correction.ipynb`, which you can open with `jupyter notebook`, I covered each step in detail in that file.
+
+### Transfer result
+Update: 2024-01-31
+
+Transfer the label file to an EXCEL sheet, which will help you do the downstream analysis. It is **almost** the same 
+with that one in the MiSleep tools.
+
+Download the `transfer_result.py` to your computer, and execute:
+```shell
+python PATH_TO_TRANSFER_RESULT.PY/transfer_result.py PATH_TO_YOUR_LABEL_FILE/LABEL.txt
+
+# Here also we provide a optional argument, which is the result file's name, see:
+# e.g. No specific result file name, the result file's name will be same with your label file
+python transfer_result.py label.txt
+# e.g. Specify a name for result file
+python transfer_result.py label.txt result.xlsx 
+```
+
+Since the scripts are much more convenient to update than MiSleep software, I highly recommend to use the 
+scripts version but not MiSleep version.
