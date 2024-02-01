@@ -178,7 +178,7 @@ for idx, row in df.iterrows():
             row['end_time'], row['end_time_sec'], '5',
             ' ', 'MARKER'
         ], index=columns)
-        new_df = insert_row(new_df, new_df.shape[0], row)
+        new_df = insert_row(new_df, new_df.shape[0], new_row)
         continue
 
     if int(row['end_time_sec'] / 3600) > int(row['start_time_sec'] / 3600):
@@ -220,20 +220,22 @@ for each in df[df['state'] != 'MARKER'].groupby('hour'):
     for phase in ["NREM", "REM", "Wake", "INIT"]:
         _duration = df_[df_["state"] == phase]["bout_duration"].sum()
         _bout = df_[df_["state"] == phase]["bout_duration"].count()
-        temp_lst += [_duration, _bout, round(_duration / _bout, 2)
-        if _bout != 0 else 0, round(_duration / 3600, 2)]
+        temp_lst += [_duration, _bout, round(_duration / _bout, 2) if _bout != 0 else 0, round(_duration / 3600, 2)]
     features.append(temp_lst)
 
 try:
-    analyse_df[['NREM_duration', 'NREM_bout', "NREM_ave", "NREM_percentage", 'REM_duration', 'REM_bout', "REM_ave",
-                "REM_percentage", 'WAKE_duration', 'WAKE_bout', "WAKE_ave", "WAKE_percentage", 'INIT_duration',
-                'INIT_bout', "INIT_ave", "INIT_percentage"]] = features
+    analyse_df[['NREM_duration', 'NREM_bout', "NREM_ave", "NREM_percentage",
+                'REM_duration', 'REM_bout', "REM_ave", "REM_percentage",
+                'WAKE_duration', 'WAKE_bout', "WAKE_ave", "WAKE_percentage",
+                'INIT_duration', 'INIT_bout', "INIT_ave", "INIT_percentage"]] = features
 except ValueError as e:
-    print(e)
-    features.append([0] * len(temp_lst))
-    analyse_df[['NREM_duration', 'NREM_bout', "NREM_ave", "NREM_percentage", 'REM_duration', 'REM_bout', "REM_ave",
-                "REM_percentage", 'WAKE_duration', 'WAKE_bout', "WAKE_ave", "WAKE_percentage", 'INIT_duration',
-                'INIT_bout', "INIT_ave", "INIT_percentage"]] = features
+    analyse_df.drop(len(analyse_df)-1, inplace=True)
+    analyse_df[['NREM_duration', 'NREM_bout', "NREM_ave", "NREM_percentage",
+                'REM_duration', 'REM_bout', "REM_ave", "REM_percentage",
+                'WAKE_duration', 'WAKE_bout', "WAKE_ave", "WAKE_percentage",
+                'INIT_duration', 'INIT_bout', "INIT_ave", "INIT_percentage"]] = features
+    pass
+
 
 analyse_df[
     ['NREM_duration', 'NREM_bout', 'REM_duration', 'REM_bout', 'WAKE_duration',
