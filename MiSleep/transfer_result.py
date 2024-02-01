@@ -224,10 +224,16 @@ for each in df[df['state'] != 'MARKER'].groupby('hour'):
         if _bout != 0 else 0, round(_duration / 3600, 2)]
     features.append(temp_lst)
 
-analyse_df[['NREM_duration', 'NREM_bout', "NREM_ave", "NREM_percentage",
-            'REM_duration', 'REM_bout', "REM_ave", "REM_percentage",
-            'WAKE_duration', 'WAKE_bout', "WAKE_ave", "WAKE_percentage",
-            'INIT_duration', 'INIT_bout', "INIT_ave", "INIT_percentage"]] = features
+try:
+    analyse_df[['NREM_duration', 'NREM_bout', "NREM_ave", "NREM_percentage", 'REM_duration', 'REM_bout', "REM_ave",
+                "REM_percentage", 'WAKE_duration', 'WAKE_bout', "WAKE_ave", "WAKE_percentage", 'INIT_duration',
+                'INIT_bout', "INIT_ave", "INIT_percentage"]] = features
+except ValueError as e:
+    print(e)
+    features.append([0] * len(temp_lst))
+    analyse_df[['NREM_duration', 'NREM_bout', "NREM_ave", "NREM_percentage", 'REM_duration', 'REM_bout', "REM_ave",
+                "REM_percentage", 'WAKE_duration', 'WAKE_bout', "WAKE_ave", "WAKE_percentage", 'INIT_duration',
+                'INIT_bout', "INIT_ave", "INIT_percentage"]] = features
 
 analyse_df[
     ['NREM_duration', 'NREM_bout', 'REM_duration', 'REM_bout', 'WAKE_duration',
