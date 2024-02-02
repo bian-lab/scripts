@@ -125,16 +125,16 @@ try:
 except IndexError as e:
     result_name = ''.join(label_file_name.split('.txt')[:-1]) + '.xlsx'
 
+####################################
+# 1. Get the sleep stage dataframe #
+####################################
+
 try:
     label_file = open(label_file_path, 'r').read().split('\n')
 
     acquisition_time = datetime.datetime.strptime(
         ' '.join(label_file[3].split(' ')[2:]), '%Y-%m-%d %H:%M:%S')
     sampling_rate = int(label_file[4].split(' ')[2])
-
-    ####################################
-    # 1. Get the sleep stage dataframe #
-    ####################################
 
     columns = ['start_time', 'start_time_sec', 'start_code',
                'end_time', 'end_time_sec', 'end_code',
@@ -143,6 +143,7 @@ try:
     df = pd.DataFrame(data=sleep_stage, columns=['string'])
     df = df['string'].str.split(', ', expand=True)
 except Exception as e:
+    # Exception when label file is invalid
     sys.exit("Select a valid MiSleep label file!")
 
 df.columns = columns
@@ -229,7 +230,7 @@ try:
                 'WAKE_duration', 'WAKE_bout', "WAKE_ave", "WAKE_percentage",
                 'INIT_duration', 'INIT_bout', "INIT_ave", "INIT_percentage"]] = features
 except ValueError as e:
-    analyse_df.drop(len(analyse_df)-1, inplace=True)
+    features = features[:-1]
     analyse_df[['NREM_duration', 'NREM_bout', "NREM_ave", "NREM_percentage",
                 'REM_duration', 'REM_bout', "REM_ave", "REM_percentage",
                 'WAKE_duration', 'WAKE_bout', "WAKE_ave", "WAKE_percentage",
