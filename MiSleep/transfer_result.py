@@ -212,11 +212,15 @@ df['bout_duration'] = df.apply(
 df['hour'] = df['start_time_sec'].apply(lambda x: int(x / 3600) if x % 3600 != 0 else '')
 analyse_df = pd.DataFrame()
 
-analyse_df['date_time'] = [df['start_time'][0]] + list(df[df['state'] == 'MARKER']['start_time'])
+temp_hour = list(set(list(df['hour'])))
+temp_hour.remove('')
+temp_hour = sorted(temp_hour)
+analyse_df['date_time'] = [transfer_time(acquisition_time, each*3600, "%Y-%m-%d %M:%H:%S")
+                           for each in temp_hour]
 
 features = []
-for each in df[df['state'] != 'MARKER'].groupby('hour'):
-    df_ = each[1]
+for each in temp_hour:
+    df_ = df[df['hour'] == each]
     temp_lst = []
     for phase in ["NREM", "REM", "Wake", "INIT"]:
         _duration = df_[df_["state"] == phase]["bout_duration"].sum()
@@ -224,18 +228,10 @@ for each in df[df['state'] != 'MARKER'].groupby('hour'):
         temp_lst += [_duration, _bout, round(_duration / _bout, 2) if _bout != 0 else 0, round(_duration / 3600, 2)]
     features.append(temp_lst)
 
-try:
-    analyse_df[['NREM_duration', 'NREM_bout', "NREM_ave", "NREM_percentage",
-                'REM_duration', 'REM_bout', "REM_ave", "REM_percentage",
-                'WAKE_duration', 'WAKE_bout', "WAKE_ave", "WAKE_percentage",
-                'INIT_duration', 'INIT_bout', "INIT_ave", "INIT_percentage"]] = features
-except ValueError as e:
-    features = features[:-1]
-    analyse_df[['NREM_duration', 'NREM_bout', "NREM_ave", "NREM_percentage",
-                'REM_duration', 'REM_bout', "REM_ave", "REM_percentage",
-                'WAKE_duration', 'WAKE_bout', "WAKE_ave", "WAKE_percentage",
-                'INIT_duration', 'INIT_bout', "INIT_ave", "INIT_percentage"]] = features
-    pass
+analyse_df[['NREM_duration', 'NREM_bout', "NREM_ave", "NREM_percentage",
+            'REM_duration', 'REM_bout', "REM_ave", "REM_percentage",
+            'WAKE_duration', 'WAKE_bout', "WAKE_ave", "WAKE_percentage",
+            'INIT_duration', 'INIT_bout', "INIT_ave", "INIT_percentage"]] = features
 
 
 analyse_df[
