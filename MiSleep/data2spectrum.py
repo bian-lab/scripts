@@ -178,8 +178,8 @@ def cal_draw_spectrum(data, sf, nperseg, freq_band=None):
 # 0. Arguments #
 ################
 # Get arguments passed in
-data_path = r'E:\workplace\scripts\MiSleep\data\mouse1.mat'
-label_path = r'E:\workplace\scripts\MiSleep\data\mouse1_label.txt'
+data_path = r'.\data\mouse1.mat'
+label_path = r'.\data\mouse1_label.txt'
 channel = 3
 
 # filter arguments, optional, default is 0.5~30 Hz bandpass
@@ -188,7 +188,7 @@ filter_low = 0.5
 filter_high = 30
 
 # Output folder
-output_folder = r'E:\workplace\scripts\MiSleep\data\test_out'
+output_folder = r'.\data\test_out'
 # if the folder doesn't exist, create it
 if not os.path.exists(output_folder):
     os.makedirs(output_folder)
