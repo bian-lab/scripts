@@ -178,8 +178,8 @@ def cal_draw_spectrum(data, sf, nperseg, freq_band=None):
 # 0. Arguments #
 ################
 # Get arguments passed in
-data_path = r'.\data\mouse1.mat'
-label_path = r'.\data\mouse1_label.txt'
+data_path = r'.\MiSleep\data\mouse1.mat'
+label_path = r'.\MiSleep\data\mouse1_label.txt'
 channel = 3
 
 # filter arguments, optional, default is 0.5~30 Hz bandpass
@@ -249,13 +249,4 @@ if len(Init_data) > sf*10:
     Init_figure.savefig(output_folder + '/Init_spectrum.pdf')
 
 writer.close()
-
-
-
-
-
-
-
-
-
 

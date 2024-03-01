@@ -42,3 +42,12 @@ python transfer_result.py label.txt result.xlsx
 
 Since the scripts are much more convenient to update than MiSleep software, I highly recommend to use the 
 scripts version but not MiSleep version.
+
+### Data to Spectrum
+Update: 2024-03-01
+
+Analyze the selected signal channel, convert to the spectrum of different states (NREM, REM, Wake, Init if exist). Will output 3 (or 4) figures, which are the spectrums of each state.
+And a excel with 3 (or 4) sheets, within each sheet is the raw data of spectrum, the first column is `frequency`, and second columns is `relative power`, you can use them to plot on other platforms (e.g. Graphpad). 
+![output excel](resources/image.png)
+
+Download the `data2spectrum.py` and edit the parameters in the `0. Arguments` part, run the python script you will get the output.
