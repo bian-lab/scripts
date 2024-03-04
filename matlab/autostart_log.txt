@@ -1,0 +1,14 @@
+autostart
+The start time was reset to current time: 2024-03-04 10:42:57
+The recording was set to start at 2024-03-04 10:42:57, stop at 2024-03-04 10:41:25, last for -135.1293 seconds
+{错误使用 <a href="matlab:matlab.internal.language.introspective.errorDocCallback('autostart')" style="font-weight:bold">autostart</a>
+ARE YOU SERIOUS?! (ﾉ｀□´)ﾉ ⌒ ┻━┻
+} 
+autostart
+The recording was set to start at 2024-03-04 10:44:00, stop at 2024-03-04 10:45:00, last for 60 seconds
+Current time: 2024-03-04 10:43:32
+The recording starts after 27.1843 seconds
+Recording started at 2024-03-04 10:44:00
+Recording stoped at 2024-03-04 10:45:00
+ 
+ 
