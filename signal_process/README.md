@@ -9,3 +9,7 @@ Some basic analysis used in MiSleep, and also the simple workflow to deal with t
 #### Feature extraction
 
 Still in progress... There are some formulas about how to extract features from a raw signal data, and some are used EEG processing most frequently.
+
+#### FP_EEG align
+
+Align labeld EEG state with FP data.
